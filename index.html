@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Parser</title>
+    <title>DJI Action 3 Renamer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
         }
-
         .container {
             width: 50%;
             margin: 0 auto;
@@ -16,13 +15,11 @@
             flex-direction: column;
             gap: 10px;
         }
-
         input {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
         button {
             padding: 10px;
             border: 1px solid #ccc;
@@ -31,7 +28,6 @@
             color: white;
             cursor: pointer;
         }
-
         button:hover {
             background-color: #45a049;
         }
@@ -39,11 +35,11 @@
 </head>
 <body>
     <div class="container">
-        <input type="number" id="bolumNumarasi" placeholder="Bölüm numarası" value="">
-        <input type="text" id="girisMetni" placeholder="Giriş metni" value="">
-        <button id="submitBtn">Sonucu Göster</button>
-        <input type="text" id="sonuc" placeholder="Sonuç" readonly>
-        <button id="copyBtn" style="background-color: #f1f1f1; color: #333;">Kopyala</button>
+        <input type="number" id="bolumNumarasi" placeholder="Episode Number" value="">
+        <input type="text" id="girisMetni" placeholder="Filename" value="">
+        <button id="submitBtn">Submit</button>
+        <input type="text" id="sonuc" placeholder="Filename" readonly>
+        <button id="copyBtn" style="background-color: #f1f1f1; color: #333;">Copy</button>
     </div>
     <script>
         function calculateResult() {
@@ -59,8 +55,6 @@
                 );
                 const sonuc = `B${bolumNumarasi} - ${formattedDateTime}`;
                 document.getElementById("sonuc").value = sonuc;
-            } else {
-                alert("Lütfen tüm alanları doldurun!");
             }
         }
 
@@ -80,10 +74,10 @@
             sonuc.setSelectionRange(0, 99999);
             document.execCommand("copy");
 
-            copyBtn.innerText = "Kopyalandı";
+            copyBtn.innerText = "Copied";
 
             setTimeout(function() {
-                copyBtn.innerText = "Kopyala";
+                copyBtn.innerText = "Copy";
             }, 2000);
         });
 
