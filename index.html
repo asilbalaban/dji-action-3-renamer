@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Parser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="number" id="bolumNumarasi" placeholder="Bölüm numarası" value="">
+        <input type="text" id="girisMetni" placeholder="Giriş metni" value="">
+        <button id="submitBtn">Sonucu Göster</button>
+        <input type="text" id="sonuc" placeholder="Sonuç" readonly>
+        <button id="copyBtn" style="background-color: #f1f1f1; color: #333;">Kopyala</button>
+    </div>
+    <script>
+        function calculateResult() {
+            const bolumNumarasi = document.getElementById("bolumNumarasi").value;
+            const girisMetni = document.getElementById("girisMetni").value;
+
+            if (bolumNumarasi && girisMetni) {
+                const parts = girisMetni.split(" ");
+                const dateTimeStr = parts[1];
+                const formattedDateTime = dateTimeStr.replace(
+                    /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/,
+                    "$1-$2-$3 $4:$5:$6"
+                );
+                const sonuc = `B${bolumNumarasi} - ${formattedDateTime}`;
+                document.getElementById("sonuc").value = sonuc;
+            } else {
+                alert("Lütfen tüm alanları doldurun!");
+            }
+        }
+
+        document.getElementById("submitBtn").addEventListener("click", calculateResult);
+        document.getElementById("girisMetni").addEventListener("input", calculateResult);
+        document.getElementById("bolumNumarasi").addEventListener("input", calculateResult);
+
+        document.getElementById("bolumNumarasi").addEventListener("change", function() {
+            localStorage.setItem("bolumNumarasi", this.value);
+        });
+
+        document.getElementById("copyBtn").addEventListener("click", function() {
+            const sonuc = document.getElementById("sonuc");
+            const copyBtn = document.getElementById("copyBtn");
+            
+            sonuc.select();
+            sonuc.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+
+            copyBtn.innerText = "Kopyalandı";
+
+            setTimeout(function() {
+                copyBtn.innerText = "Kopyala";
+            }, 2000);
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedBolumNumarasi = localStorage.getItem("bolumNumarasi");
+            if (savedBolumNumarasi) {
+                document.getElementById("bolumNumarasi").value = savedBolumNumarasi;
+            }
+        });
+    </script>
+</body>
+</html>
