@@ -47,7 +47,8 @@
             const girisMetni = document.getElementById("girisMetni").value;
 
             if (bolumNumarasi && girisMetni) {
-                const parts = girisMetni.split(" ");
+                const yeniGirisMetni = girisMetni.replaceAll("_", " ")
+                const parts = yeniGirisMetni.split(" ");
                 const dateTimeStr = parts[1];
                 const formattedDateTime = dateTimeStr.replace(
                     /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/,
